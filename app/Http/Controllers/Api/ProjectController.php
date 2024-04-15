@@ -19,6 +19,11 @@ class ProjectController extends Controller
             ->orderBy('created_at', 'DESC')
             ->with('type:id,name')
             ->paginate();
+
+        foreach ($projects as $project) {
+            $project->image = !empty($project->image) ? asset('/storage/' . $project->image) : 'https://placehold.co/640x400';
+        }
+
         return response()->json($projects);
     }
 
